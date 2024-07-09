@@ -3,6 +3,11 @@
 @import "themes/normal";
 @import "themes/dark";
 
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
 .app,
 .app_modal {
   font: var(--font-m);
@@ -16,6 +21,7 @@
 
 .content-page {
   display: flex;
+  height: calc(100vh - var(--navbar-height));
 }
 
 *::-webkit-scrollbar {

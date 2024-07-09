@@ -1,26 +1,15 @@
 import React from 'react';
-import cls from './AuthPage.module.scss';
-import {useCountStore} from "@/entities/User/model/store/userStore.ts";
+import {AuthForm} from "@/features/authByToken/ui/AuthForm/AuthForm.tsx";
+import cls from './AuthPage.module.scss'
+import {Page} from "@/widgets/Page";
 
 const AuthPage = () => {
-    const count = useCountStore((state) => state.count)
-    const increment = useCountStore((state) => state.increment)
-    const decrement = useCountStore((state) => state.decrement)
-
     return (
-        <div>
-            {count}
-
-            <div>
-                <button onClick={() => increment(1)}>
-                    +
-                </button>
-
-                <button onClick={() => decrement(1)}>
-                    -
-                </button>
+        <Page>
+            <div className={cls.form}>
+                <AuthForm />
             </div>
-        </div>
+        </Page>
     );
 };
 

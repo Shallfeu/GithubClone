@@ -5,9 +5,8 @@ type State = {
 }
 
 type Actions = {
-    setUsername: (value: string) => void;
-    setToken: (value: string) => void;
+    setState: (value: State) => void;
 }
 
-export type UserStore = State | Actions;
+export type UserStore = State & Actions;
 

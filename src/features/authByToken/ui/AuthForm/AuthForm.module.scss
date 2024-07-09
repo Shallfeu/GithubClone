@@ -1,0 +1,13 @@
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.input {
+  padding: 4px;
+  border: 1px solid goldenrod;
+  width: 100%;
+}
