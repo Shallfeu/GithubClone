@@ -1,11 +1,11 @@
-import {gql} from '@apollo/client';
+import { gql } from '@apollo/client';
 
-export const SEARCH_REPOSITORIES = gql`
-    query SearchRepositories($query: String!, $first: Int, $last: Int, $after: String, $before: String) {
-        search(query: $query, type: REPOSITORY, first: $first, last: $last, after: $after, before: $before) {
-            edges {
-                node {
-                    ... on Repository {
+export const GET_USER_REPOSITORIES = gql`
+    query GetUserRepositories($first: Int, $last: Int, $after: String, $before: String) {
+        viewer {
+            repositories(first: $first, last: $last, after: $after, before: $before) {
+                edges {
+                    node {
                         id
                         name
                         url
@@ -22,14 +22,14 @@ export const SEARCH_REPOSITORIES = gql`
                         }
                     }
                 }
+                pageInfo {
+                    startCursor
+                    hasPreviousPage
+                    endCursor
+                    hasNextPage
+                }
+                totalCount
             }
-            pageInfo {
-                startCursor
-                hasPreviousPage
-                endCursor
-                hasNextPage
-            }
-            repositoryCount
         }
     }
 `;

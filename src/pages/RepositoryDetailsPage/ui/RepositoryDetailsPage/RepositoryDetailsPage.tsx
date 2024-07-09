@@ -1,12 +1,24 @@
 import React from 'react';
-import {useParams} from "react-router-dom";
-import Repository from "../../../../entities/Repository/ui/Repository/Repository.tsx";
+import {useNavigate, useParams} from "react-router-dom";
+import {RepositoryDetails} from "@/entities/Repository";
+import {Page} from "@/widgets/Page";
+import {RoutePath} from "@/shared/config/routeConfig/routeConfig.tsx";
+import cls from './RepositoryDetailsPage.module.scss'
 
 const RepositoryDetailsPage = () => {
     const {id} = useParams();
 
+    const navigate = useNavigate();
+
+    if (!id) {
+        navigate(RoutePath.main)
+        return;
+    }
+
     return (
-        <Repository id={id} />
+        <Page>
+            <RepositoryDetails className={cls.details} id={id}/>
+        </Page>
     );
 };
 

@@ -1,11 +1,7 @@
-import { searchMovieReducer } from './model/slice/searchMovie';
-import {SearchInput} from './ui/SearchInput/SearchInput';
+import useSearchStore from "./model/store/searchStore.ts";
+import {SearchForm} from './ui/SearchForm/SearchForm.tsx'
 
 export {
-    SearchInput,
-    searchMovieReducer,
-};
-
-export type {
-    SearchMovieByNameSchema,
-} from './model/types/searchMovieByNameSchema';
+    useSearchStore,
+    SearchForm
+}

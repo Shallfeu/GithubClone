@@ -15,10 +15,11 @@ const RepositoriesList = (props: RepositoryListProps) => {
         <div className={classNames(cls.List, {}, [])}>
             {repositories.map(repository => <RepositoryCard
                 key={repository.id}
+                id={repository.id}
                 name={repository.name}
                 stars={repository.stars}
-                link={repository.link}
                 lastCommit={repository.lastCommit}
+                link={repository.url}
                 className={cls.Card}
             />)}
         </div>

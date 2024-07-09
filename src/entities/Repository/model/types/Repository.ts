@@ -1,7 +1,8 @@
 export interface Repository {
     id: string;
     name: string;
-    stars: string;
+    stars: number;
     lastCommit: string;
-    link: string;
+    url: string;
+    owner: string;
 }

@@ -1,40 +1,13 @@
-import React, {useEffect} from 'react';
-import {RepositoriesList} from "@/entities/Repository";
-import {Repository} from "@/entities/Repository/model/types/Repository.ts";
-import Pagination from "@/shared/ui/Pagination/Pagination.tsx";
-import {classNames} from "@/shared/lib/classNames/classNames.ts";
+import React from 'react';
 import cls from './MainPage.module.scss';
-import {Input} from "@/shared/ui/Input/Input.tsx";
-import useSearchStore from "../../../../features/searchRepositoryByName/model/store/searchStore.ts";
-import Search from "../Search.tsx";
+import RepositoriesPaginatableList from "../RepositoriesPaginatableList/RepositoriesPaginatableList.tsx";
+import {Page} from "@/widgets/Page";
 
 const MainPage = () => {
-    const search = useSearchStore(state => state.search);
-    const setSearch = useSearchStore(state => state.setSearch);
-
-    useEffect(() => {
-
-    }, []);
-
     return (
-        <div className={classNames(cls.page, {}, [])}>
-            <Search first={10}/>
-            {/*<Input*/}
-            {/*    value={search}*/}
-            {/*    onChange={setSearch}*/}
-            {/*/>*/}
-
-            {/*<RepositoriesList*/}
-            {/*    repositories={repositories}*/}
-            {/*/>*/}
-
-            {/*<Pagination*/}
-            {/*    currentPage={2}*/}
-            {/*    totalCount={100}*/}
-            {/*    pageSize={10}*/}
-            {/*    onPageChange={page => console.log(page)}*/}
-            {/*/>*/}
-        </div>
+        <Page>
+            <RepositoriesPaginatableList className={cls.content} />
+        </Page>
     );
 };
 

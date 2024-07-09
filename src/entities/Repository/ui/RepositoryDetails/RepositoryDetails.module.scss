@@ -1,0 +1,54 @@
+.details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.badge {
+  margin-left: 8px;
+  padding: 8px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.nick {
+  font-size: 28px;
+}
+
+.img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.stars {
+  color: goldenrod;
+}
+
+.commit {
+  font-size: 20px;
+}
+
+.link {
+  color: orangered;
+}
+
+.languages {
+  font-size: 20px;
+}
+
+.owner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ownerInfo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+}

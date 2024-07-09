@@ -1,17 +1,10 @@
 import { create } from 'zustand'
+import {UserStore} from "../types/UserStore.ts";
 
-type State = {
-    count: number
-}
-
-type Actions = {
-    increment: (qty: number) => void
-    decrement: (qty: number) => void
-}
-
-export const useCountStore = create<State & Actions>((set) => ({
-    count: 0,
-    increment: (qty: number) => set((state) => ({ count: state.count + qty })),
-    decrement: (qty: number) => set((state) => ({ count: state.count - qty })),
+export const useUserStore = create<UserStore>((set) => ({
+    username: "shallfeu",
+    token: '',
+    setUsername: (value: string) => set((state) => ({ username: value })),
+    setToken: (value: string) => set((state) => ({ token: value })),
 }))
 

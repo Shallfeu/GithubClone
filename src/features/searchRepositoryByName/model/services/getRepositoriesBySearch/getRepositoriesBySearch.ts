@@ -1,30 +1,62 @@
-import {useLazyQuery} from "@apollo/client";
+import {ApiService} from "@/shared/api/api.service.ts";
 import {SEARCH_REPOSITORIES} from "./query.ts";
+import {Repository} from "@/entities/RepositoryDetails";
+import {addQueryParams} from "@/shared/lib/url/addQueryParams/addQueryParams.ts";
 
 interface GetRepositoriesBySearchParams {
     search: string;
     first: number;
-
+    last: number;
+    after: string;
+    before: string;
 }
 
-const getRepositoriesBySearch = (params: GetRepositoriesBySearchParams) => {
+export const getRepositoriesBySearch = async (params: GetRepositoriesBySearchParams) => {
     const {
         search,
-        first
+        first,
+        last,
+        after,
+        before
     } = params;
 
-    const [searchRepositories, {loading, error}] = useLazyQuery(SEARCH_REPOSITORIES, {
-        variables: {query: search, first},
+    const options = {
+        query: search,
+        first,
+        last,
+        after,
+        before
+    }
 
-        notifyOnNetworkStatusChange: true,
+    const {data, error} = await ApiService.query(SEARCH_REPOSITORIES, options);
 
-        onCompleted: (data) => {
-            console.log(data)
-            // setRepositories(
-            //     data.search.edges.map((edge) => edge.node),
-            //     data.search.pageInfo.endCursor,
-            //     data.search.pageInfo.hasNextPage
-            // );
-        },
+    addQueryParams({search})
+
+    const repositories = data.search.edges.map((edge: any): Repository => {
+        const node = edge.node;
+
+        return {
+            id: node.id,
+            name: node.name,
+            stars: node.stargazerCount,
+            lastCommit: node.defaultBranchRef.target.committedDate,
+            url: node.url,
+            owner: node.owner.login,
+        } as Repository;
     });
+    const startCursor = data.search.pageInfo.startCursor;
+    const hasPreviousPage = data.search.pageInfo.hasPreviousPage;
+    const endCursor = data.search.pageInfo.endCursor;
+    const hasNextPage = data.search.pageInfo.hasNextPage;
+
+    return {
+        data: {
+            repositories,
+            startCursor,
+            hasPreviousPage,
+            endCursor,
+            hasNextPage
+        },
+        error
+    }
 }
