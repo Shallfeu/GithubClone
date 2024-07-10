@@ -32,7 +32,7 @@ export const getRepositoriesBySearch = async (params: GetRepositoriesBySearchPar
 
     addQueryParams({search})
 
-    const repositories = data.search.edges.map((edge: any): Repository => {
+    const repositories = data.search.edges.map((edge: unknown): Repository => {
         const node = edge.node;
 
         return {

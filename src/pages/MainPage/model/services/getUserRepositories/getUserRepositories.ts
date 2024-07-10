@@ -7,7 +7,7 @@ import {addQueryParams} from "@/shared/lib/url/addQueryParams/addQueryParams.ts"
 export const getUserRepositories = async (args: PaginationArgs) => {
     const {data, error} = await ApiService.query(GET_USER_REPOSITORIES, args)
 
-    const repositories = data.viewer.repositories.edges.map((edge: any): Repository => {
+    const repositories = data.viewer.repositories.edges.map((edge: unknown): Repository => {
         const node = edge.node;
 
         return {

@@ -25,7 +25,7 @@ export const Input = memo((props: InputProps) => {
         readonly,
         ...otherProps
     } = props;
-    const ref = useRef<HTMLInputElement>(null);
+    const ref = useRef<HTMLInputElement | null>(null);
     const [isFocused, setIsFocused] = useState(false);
     const [caretPosition, setCaretPosition] = useState(0);
 
@@ -51,16 +51,16 @@ export const Input = memo((props: InputProps) => {
         setIsFocused(true);
     };
 
-    const onSelect = (e: any) => {
+    const onSelect = (e: unknown) => {
         setCaretPosition(e?.target?.selectionStart || 0);
     };
 
     const mods: Mods = {
-        [cls.readonly]: readonly,
+        [cls.readonly]: readonly
     };
 
     return (
-        <div className={classNames(cls.InputWrapper, {}, [className])}>
+        <div className={classNames(cls.InputWrapper, mods, [className])}>
             {placeholder && (
                 <div className={cls.placeholder}>
                     {`${placeholder}>`}
