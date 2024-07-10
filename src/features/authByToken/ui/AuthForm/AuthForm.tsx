@@ -7,11 +7,13 @@ import {classNames} from "@/shared/lib/classNames/classNames.ts";
 
 interface AuthFormProps {
     className?: string;
+    onSuccessAuth: () => void;
 }
 
 export const AuthForm = (props: AuthFormProps) => {
     const {
-        className
+        className,
+        onSuccessAuth
     } = props;
 
     const {
@@ -21,19 +23,25 @@ export const AuthForm = (props: AuthFormProps) => {
         error,
         setUsername,
         setToken,
+        authByToken,
         clearStore
     } = useAuthByTokenStore();
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
         if (!username || !token) {
             return;
         }
 
+        const result = await authByToken();
 
+        console.log(result, 123)
 
-        clearStore();
+        if (result) {
+            onSuccessAuth();
+            clearStore();
+        }
     };
 
     const handleChangeUsername = (value: string) => {

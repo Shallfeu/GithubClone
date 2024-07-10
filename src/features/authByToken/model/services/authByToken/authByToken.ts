@@ -6,12 +6,10 @@ interface AuthByTokenParams {
 }
 
 export const authByToken = async (params: AuthByTokenParams) => {
-    const {data, error} = await ApiService.query(AUTH_BY_TOKEN, params);
+    const {data, error} = await ApiService.query(AUTH_BY_TOKEN, {...params, first: 1});
 
     return {
-        data: {
-            auth: !!data,
-        },
+        data: !!data,
         error
     }
 }

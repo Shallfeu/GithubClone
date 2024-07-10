@@ -10,7 +10,7 @@ type State = {
 type Actions = {
     setUsername: (value: string) => void;
     setToken: (value: string) => void;
-    authByToken: () => void;
+    authByToken: Promise<boolean>;
     clearStore: () => void;
 }
 

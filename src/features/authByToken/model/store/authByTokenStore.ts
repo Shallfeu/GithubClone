@@ -2,6 +2,7 @@ import {create} from "zustand";
 import {AuthByTokenStore} from "../types/AuthByTokenStore.ts";
 import {authByToken} from "../services/authByToken/authByToken.ts";
 import {useUserStore} from "../../../../entities/User";
+import {$api} from "../../../../shared/api/api.ts";
 
 export const useAuthByTokenStore = create<AuthByTokenStore>((set, getState) => ({
     setState: useUserStore.getState?.().setState,
@@ -29,7 +30,9 @@ export const useAuthByTokenStore = create<AuthByTokenStore>((set, getState) => (
             username: state.username
         }
 
-        set({...state, isLoading: true})
+        set({...state, error: null, isLoading: true})
+
+        localStorage.setItem('AUTH_KEY', state.token);
 
         const {data, error} = await authByToken(params)
 
@@ -40,10 +43,17 @@ export const useAuthByTokenStore = create<AuthByTokenStore>((set, getState) => (
             }
 
             state.setState(authData)
+            set({...state, isLoading: false})
+
+            return true;
         }
 
         if (error) {
-            set({...state, error})
+            set({...state, error: error.message, isLoading: false})
+
+            localStorage.removeItem('AUTH_KEY')
+
+            return false;
         }
     }
 }));
