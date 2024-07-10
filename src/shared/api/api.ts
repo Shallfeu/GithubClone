@@ -5,6 +5,7 @@ import {AUTH_KEY} from "../consts/localStorage/localStorageConsts.ts";
 // const token = API_KEY;
 
 const authMiddleware = new ApolloLink((operation, forward) => {
+    // if we use .env key, so comment this line
     const token = localStorage.getItem(AUTH_KEY);
 
     operation.setContext(({ headers = {} }) => ({
